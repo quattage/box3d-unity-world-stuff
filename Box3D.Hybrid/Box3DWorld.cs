@@ -82,18 +82,21 @@ namespace Box3D.Hybrid
 
 #nullable enable
         private static Box3DWorld _instance;
-        public static IBox3DWorld? GetInstance(UnityEngine.SceneManagement.Scene? scene, MonoBehaviour? requester)
+        public static IBox3DWorld? Instance
         {
-            if (!_instance)
+            get
             {
-                _instance = FindAnyObjectByType<Box3DWorld>();
                 if (!_instance)
                 {
-                    if (Application.isPlaying)
-                        _instance = new GameObject("Box3D World").AddComponent<Box3DWorld>();
+                    _instance = FindAnyObjectByType<Box3DWorld>();
+                    if (!_instance)
+                    {
+                        if (Application.isPlaying)
+                            _instance = new GameObject("Box3D World").AddComponent<Box3DWorld>();
+                    }
                 }
+                return _instance;
             }
-            return _instance;
         }
 #nullable disable
 

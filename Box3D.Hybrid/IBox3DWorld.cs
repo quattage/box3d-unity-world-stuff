@@ -38,7 +38,7 @@ namespace Box3D.Hybrid
         /// always be the singleton stored in Box3DWorld.
         /// </summary>
         [NoAutoStaticsCleanup]
-        private static WorldProvider _provider = Box3DWorld.GetInstance;
+        private static WorldProvider _provider = (scene, requester) => { return Box3DWorld.Instance; };
 
         /// <summary>
         /// Gets the IBox3DWorld instance for the given scene and requester.
@@ -77,7 +77,7 @@ namespace Box3D.Hybrid
         /// <returns></returns>
         public static void AssignProvider(WorldProvider? provider)
         {
-            if (provider == null) _provider = Box3DWorld.GetInstance;
+            if (provider == null) _provider = (scene, requester) => { return Box3DWorld.Instance; };
             else _provider = provider;
         }
 
